@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">">
+  <style>
+    .container {
+      width: 50%;
+      margin: auto;
+    }
+
+    h1,
+    img,
+    label,
+    textarea {
+      display: block;
+      margin: 10px 0;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>本日も一日お疲れ様でした！</h1>
+    <img src="https://cataas.com/cat?width=300&height=300" alt="Cute cat" />
+    <p>あなたのきもちを教えてください</p>
+    <form  class="frm" method="post" action="/ask">
+      <label for="question1">今日モヤモヤしたことは？</label>
+      <textarea id="answer1" name="answerFrustrated"></textarea>
+
+      <label for="question2">今日印象に残っていることは？</label>
+      <textarea id="answer2" name="answerImpressed"></textarea>
+
+      <label for="question3">今日嬉しかった事は？</label>
+      <textarea id="answer3" name="answerHappy"></textarea>
+      <button class="btn" type="button">GPTに教える</button>
+    </form>
+    <label for="gptAnswer">GPTの返事</label>
+    <textarea id="gptAnswer" name="gptAnswer"></textarea>
+  </div>
+</body>
+<script>
+const fetchForm = document.querySelector('.frm');
+const btn = document.querySelector('.btn');
+const url = `${location.origin}/ask`;
+
+const postFetch = () => {
+    const formData = new FormData(fetchForm);
+    for (let value of formData.entries()) {
+      
+        console.log(value);
+    }
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    fetch(url, {
+        method: 'POST',
+        headers: {
+      'Content-Type': 'application/json'
+    },
+        body: JSON.stringify(data)
+    }).then((response) => {
+        if(!response.ok) {
+            console.log('error!');
+        } 
+        console.log('ok!');
+        return response.text();
+    }).then((data)  => {
+      const elm = document.getElementById('gptAnswer');
+        elm.value = data;
+        console.log(data);
+    }).catch((error) => {
+        console.log(error);
+    });
+};
+
+btn.addEventListener('click', postFetch, false);
+</script>
+
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "mirror-on-your-side",
+  "version": "1.0.0",
+  "main": "api.js",
+  "repository": "https://github.com/nagauta/mirror-on-your-side.git",
+  "author": "mie035 <Notakes035@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "start": "node dist/api.js",
+    "build": "tsc",
+    "dev": "ts-node src/api.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.16.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@discordjs/core": "^0.6.0",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "langchain": "^0.0.68",
+    "openai": "^3.2.1"
+  }
+}
